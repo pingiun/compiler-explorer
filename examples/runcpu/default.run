@@ -1,0 +1,4 @@
+# Type your code here, or load an example.
+.START 0
+ADD R1, R2, R3
+HALT
