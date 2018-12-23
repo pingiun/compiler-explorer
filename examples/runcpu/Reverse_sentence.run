@@ -1,0 +1,37 @@
+.START 0
+reverse: READ [SP+4], R1
+         READ [SP+8], R2
+loop:    CMPf R1, R2
+         JUMP.GE end
+         READ [R1], R3
+         READ [R2], R4
+         WRITE R4, [R1]
+         WRITE R3, [R2]
+         ADD 4, R1, R1
+         ADD -4, R2, R2
+         JUMP loop
+end: RET
+
+revw:  PUSH FP
+       MOVE SP, FP
+       PUSH R6
+       PUSH R7
+       PUSH R8
+       PUSH R9
+       READ [FP+8], R6
+       ADD -4, R6, R6
+       MOVE R6, R7
+loopw: ADD 4, R7, R7
+       READ [R7], R8
+       CMPf R8, 32
+       CMPf.NE R8, R0
+       JUMP.NE next
+next:  CMPf R8, R0
+       JUMP.NE loopw
+       POP R9
+       POP R8
+       POP R7
+       POP R6
+       MOVE FP, SP
+       POP FP
+       RET
